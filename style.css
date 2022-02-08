@@ -1,9 +1,21 @@
 *{
     font-family: Nunito, sans-serif;
 }
+button {
+cursor: pointer;
+}
+button:active {
+    transform: scale(0.97);
+}
+.colors--button:active {
+    transform: scale(0.80);
+}
 body{
     background-color: floralwhite;
     display: flex;
+}
+#title--main{
+    min-width:200px;
 }
 #main--page{
     margin-left: 10px;
@@ -58,36 +70,49 @@ button, input[type="submit"], input[type="text"] {
 }
 .colors--button {
     /* appearance: none;    */
+    cursor: pointer;
     height: 45px;
     width: 45px;
     border-radius: 50%;
     margin: 10px;
+    border: 1.2px solid #696969 !important;
 }
 .colors--container input[type="radio"]   {
     display: none;
 }
 .colors--container input[type="radio"]:checked + label    {
-    border: 1px solid red !important;
+   border: 1.2px solid #000000 !important;
+   box-shadow: 0px 0px 5px #696969;
 }
 #creative--drawer   {
-    padding-left: 10px;
+    padding: 10px;
     border-left: 2px solid #525252;
     width: 35vw;
     height: 98vh;
     display: none;
+    flex-direction: column;
+}
+#creative--drawer  h3 {
+flex: 0.5;
 }
 #add--creative {
     margin-left: 10px;
 }
 .previews   {
-    margin-top: 50px;
+    margin-top: 30px;
     margin-left: 10px;
     height: 100px;
     width: 300px;
-    border-radius: 10px;
-    display:table-cell;
-    text-align: center;
-    vertical-align: middle;
+    display:flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content: center;
+}
+.previews h2 {
+    margin: 0px;
+}
+.previews h3 {
+    margin: 0px;
 }
 #preview--container{
     display: flex;
@@ -112,4 +137,35 @@ button, input[type="submit"], input[type="text"] {
     background-color: black;
     height: 20px;
     width: 0%;
+}
+#head--close{
+    display: flex;
+    justify-content: space-between;
+}
+#head--close > button {
+    border: 0.5px solid black;
+    text-align: center;
+    width: 25px;
+    height: 25px;
+    margin: 25px;
+}
+#close--button:hover   {
+    background-color: red;
+}
+#form--drawer{
+    margin: 10px;
+    flex: 5;
+    justify-self: start;
+}
+#form--drawer input {
+    margin: 10px 0px;
+
+    height: 15px;
+    width: 85%;
+}
+#done--drawer   {
+    flex: 0.1;
+    margin-bottom: 50px;
+    width: 75px;
+    height: 25px;
 }

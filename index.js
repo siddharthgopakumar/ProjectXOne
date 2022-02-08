@@ -9,6 +9,7 @@ const previewContainer = document.querySelector('#preview--container');
 const progress = document.querySelector('#fill--progress');
 const progressHeading = document.querySelector('#heading--progress');
 const filterContainer = document.querySelector('#filtered--content');
+const searchTitle = document.querySelector('#title--main');
 
 let pro = 0;
 let bg;
@@ -26,14 +27,42 @@ function toggleDrawer() {
         drawer.style.display = 'none';
         addCreativeBtn.disabled = false;
     }   else    {
-        drawer.style.display = 'block';
+        drawer.style.display = 'flex';
         addCreativeBtn.disabled = true;
     }
 }
 
+function titleSearcher() {
+const value = searchTitle.value.toLowerCase();
+console.log(value);
+    if(value != "")    {
+                previewContainer.style.display = 'none';
+                filterContainer.style.display = 'flex';
+                Object.keys(previewed).forEach((key) => {
+                    const title = key.split('-')
+                    if(title[1].includes(value) || title[2].includes(value))  {
+                        filtered = {};
+                        filtered[key] = previewed[key];
+                        console.log(filtered);
+                    }
+                    filterContainer.innerHTML = '';
+                    for(const property in filtered)    {
+                       filterContainer.appendChild(filtered[property].cloneNode(true));
+                       console.log(filterContainer);
+                    }
+         });
+    }   else    {
+                filtered = {};
+                previewContainer.style.display = 'flex';
+                filterContainer.style.display = 'none';
+                filterContainer.innerHTML = '';
+    }
+
+}
+
 function updatePreview(e) {
     e.preventDefault();
-    previewContainer.style.display = 'block';
+    previewContainer.style.display = 'flex';
     filterContainer.style.display = 'none';
     let div = document.createElement("div");
     div.className = "previews";
@@ -52,7 +81,7 @@ function updatePreview(e) {
     div.appendChild(subtitle);
     done.disabled = true;
     previewContainer.appendChild(div);
-    previewed[`${bg}-${title.textContent}-${subtitle.textContent}`] = div;
+    previewed[`${bg}-${title.textContent.toLowerCase()}-${subtitle.textContent.toLowerCase()}`] = div;
     pro = previewContainer.childNodes.length - 1;
     progressHeading.textContent = `${pro} / 5 Creatives`;
     progress.style.width = `${20 * pro}%`;
@@ -62,7 +91,7 @@ function filterator() {
     filtered = {};
     if(lastSelected0.length > 0)   {
             previewContainer.style.display = 'none';
-            filterContainer.style.display = 'block';
+            filterContainer.style.display = 'flex';
              Object.keys(previewed).forEach((key) => {
                  if(lastSelected0.includes(key.match(/#[0-9a-z]+/g)[0]))   filtered[key] = previewed[key];
                  });
@@ -71,7 +100,7 @@ function filterator() {
                filterContainer.appendChild(filtered[property].cloneNode(true));
             }
     }    else    {
-           previewContainer.style.display = 'block';
+           previewContainer.style.display = 'flex';
            filterContainer.style.display = 'none';
    }
 }
@@ -132,7 +161,19 @@ function populateColors(colors) {
     Nodes.forEach((n) => n.previousSibling.addEventListener('click', isChecked))
 })();
 
+const closeButton = document.querySelector("#close--button");
+
 addCreativeBtn.addEventListener('click', toggleDrawer);
 form.addEventListener('change', doneButtonHandler);
-form.addEventListener('keydown', doneButtonHandler);
+form.addEventListener('keyup', doneButtonHandler);
 done.addEventListener('click', (e) =>  updatePreview(e,bg));
+searchTitle.addEventListener('keyup', titleSearcher);
+closeButton.addEventListener('click', () => {
+        drawer.style.display = 'none';
+        addCreativeBtn.disabled = false;
+});
+window.addEventListener('keyup', (e)=> {if(e.keyCode == 27) {
+        drawer.style.display = 'none';
+        addCreativeBtn.disabled = false;
+    }
+});
