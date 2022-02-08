@@ -35,13 +35,15 @@ function toggleDrawer() {
 function titleSearcher() {
 const value = searchTitle.value.toLowerCase();
 console.log(value);
+filtered = {};
     if(value != "")    {
                 previewContainer.style.display = 'none';
                 filterContainer.style.display = 'flex';
                 Object.keys(previewed).forEach((key) => {
                     const title = key.split('-')
+
                     if(title[1].includes(value) || title[2].includes(value))  {
-                        filtered = {};
+
                         filtered[key] = previewed[key];
                         console.log(filtered);
                     }
