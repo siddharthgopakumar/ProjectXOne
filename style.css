@@ -2,6 +2,7 @@
     font-family: Nunito, sans-serif;
 }
 body{
+    background-color: floralwhite;
     display: flex;
 }
 #main--page{
@@ -9,8 +10,8 @@ body{
 }
 #filter--options{
     display: flex;
-    justify-content: space-between;      
-    width: 50vw; 
+    justify-content: space-between;
+    width: 50vw;
 }
 .colors--wrapper{
     display: flex;
@@ -39,7 +40,7 @@ button, input[type="submit"], input[type="text"] {
     height: 200px;
     /* background-color: grey;   */
 }
-.colors--button0, .colors--button1 { 
+.colors--button, .colors--button1 {
     /* appearance: none;    */
     height: 45px;
     width: 45px;
