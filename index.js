@@ -8,6 +8,7 @@ const subtitleDrawer = document.querySelector('#subtitle--drawer');
 const previewContainer = document.querySelector('#preview--container');
 const progress = document.querySelector('#fill--progress');
 const progressHeading = document.querySelector('#heading--progress');
+const filterContainer = document.querySelector('#filtered--content');
 
 let pro = 0;
 let bg;
@@ -16,6 +17,8 @@ let checkitycheck = false;
 let lastSelected0 = [];
 let lastSelected1;
 let Nodes;
+let previewed = {};
+let filtered = {};
 
 
 function toggleDrawer() {
@@ -30,6 +33,8 @@ function toggleDrawer() {
 
 function updatePreview(e) {
     e.preventDefault();
+    previewContainer.style.display = 'block';
+    filterContainer.style.display = 'none';
     let div = document.createElement("div");
     div.className = "previews";
     let title = document.createElement("h2");
@@ -47,12 +52,29 @@ function updatePreview(e) {
     div.appendChild(subtitle);
     done.disabled = true;
     previewContainer.appendChild(div);
+    previewed[`${bg}-${title.textContent}-${subtitle.textContent}`] = div;
     pro = previewContainer.childNodes.length - 1;
     progressHeading.textContent = `${pro} / 5 Creatives`;
     progress.style.width = `${20 * pro}%`;
     toggleDrawer();
 }
-
+function filterator() {
+    filtered = {};
+    if(lastSelected0.length > 0)   {
+            previewContainer.style.display = 'none';
+            filterContainer.style.display = 'block';
+             Object.keys(previewed).forEach((key) => {
+                 if(lastSelected0.includes(key.match(/#[0-9a-z]+/g)[0]))   filtered[key] = previewed[key];
+                 });
+             filterContainer.innerHTML = '';
+            for(const property in filtered)    {
+               filterContainer.appendChild(filtered[property].cloneNode(true));
+            }
+    }    else    {
+           previewContainer.style.display = 'block';
+           filterContainer.style.display = 'none';
+   }
+}
 function doneButtonHandler() {
     if(titleDrawer.value != "" && subtitleDrawer.value != "" && checkitycheck)   done.disabled = false;
     else    done.disabled = true;
@@ -60,10 +82,10 @@ function doneButtonHandler() {
 
 function isChecked(e)    {
     let inputEle = e.target;
-        if(lastSelected0.includes(inputEle.id))  {
-            lastSelected0.splice(lastSelected0.indexOf(inputEle.id), 1);
-            console.log(lastSelected0);
+        if(lastSelected0.includes(inputEle.value))  {
+            lastSelected0.splice(lastSelected0.indexOf(inputEle.value), 1);
             inputEle.checked = false;
+            filterator();
         } else if(inputEle.id == lastSelected1)   {
                 inputEle.checked = false;
                 lastSelected1 = "";
@@ -75,8 +97,8 @@ function isChecked(e)    {
                         checkitycheck = true;
                         lastSelected1 = inputEle.id;
                 }   else    {
-                    lastSelected0.push(inputEle.id);
-                    lastSelected0.filter
+                    lastSelected0.push(inputEle.value);
+                    filterator();
                 }
         }
 }

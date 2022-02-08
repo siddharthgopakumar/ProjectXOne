@@ -25,6 +25,10 @@ body{
     justify-content: space-between;
     width: 50vw;
 }
+#filtered--content{
+    display: none;
+}
+
 .colors--wrapper{
     display: flex;
     flex: 2;
