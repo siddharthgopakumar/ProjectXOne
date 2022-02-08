@@ -6,7 +6,19 @@ body{
     display: flex;
 }
 #main--page{
+    margin-left: 10px;
     flex-grow: 1;
+    height: 98vh;
+    overflow: auto;
+}
+#main--page::-webkit-scrollbar {
+    border-radius: 25px;
+    width: 10px;
+    height: 10px;
+    border: 2px solid black; /* or add it to the track */
+}
+#main--page::-webkit-scrollbar-thumb    {
+    background: #000;
 }
 #filter--options{
     display: flex;
@@ -40,7 +52,7 @@ button, input[type="submit"], input[type="text"] {
     height: 200px;
     /* background-color: grey;   */
 }
-.colors--button, .colors--button1 {
+.colors--button {
     /* appearance: none;    */
     height: 45px;
     width: 45px;
@@ -54,15 +66,21 @@ button, input[type="submit"], input[type="text"] {
     border: 1px solid red !important;
 }
 #creative--drawer   {
+    padding-left: 10px;
     border-left: 2px solid #525252;
     width: 35vw;
-    height: 99vh;
+    height: 98vh;
     display: none;
 }
+#add--creative {
+    margin-left: 10px;
+}
 .previews   {
-    height: 80px;
-    width: 200px;
-    border-radius: 5%;
+    margin-top: 50px;
+    margin-left: 10px;
+    height: 100px;
+    width: 300px;
+    border-radius: 10px;
     display:table-cell;
     text-align: center;
     vertical-align: middle;
@@ -70,4 +88,24 @@ button, input[type="submit"], input[type="text"] {
 #preview--container{
     display: flex;
     flex-direction: column;
+}
+#outline--wrapper{
+    align-items: center;
+    display: flex;
+}
+#heading--progress{
+    margin-left: 20px;
+}
+#outline--progress  {
+    border-radius: 25px;
+    margin-left: 10px;
+    width: 45%;
+    height: 20px;
+    border: 1px solid black;
+}
+#fill--progress{
+    border-radius: 25px;
+    background-color: black;
+    height: 20px;
+    width: 0%;
 }

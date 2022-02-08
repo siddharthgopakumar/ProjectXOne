@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Poppins:wght@300;600&display=swap"
+          rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <script src="index.js" defer></script>
     <title>☻ Creatives</title>
@@ -17,7 +18,7 @@
     <section id="filter--options">
         <div class="colors--wrapper">
             <h4>Color:</h4>
-            <div  class="colors--container" id="colors--main--container">        
+            <div class="colors--container" id="colors--main--container">
             </div>
         </div>
         <form id="form--container">
@@ -25,9 +26,16 @@
             <input type="text" id="title--main" placeholder="Enter title / subtitle"/>
         </form>
     </section>
+    <section id="outline--wrapper">
+        <div id="outline--progress">
+            <div id="fill--progress"></div>
+        </div>
+        <h4 id="heading--progress">0 / 5 Creatives</h4>
+    </section>
     <button id="add--creative">♦ Add Creative</button>
-    <div id="preview--container">    
+    <div id="preview--container">
     </div>
+
 </div>
 <div id="creative--drawer">
     <h3>Creative Creation</h3>
@@ -39,7 +47,7 @@
         <div class="colors--container" id="colors--drawer--container">
         </div>
     </form>
-    <button id="done--drawer" disabled  >Done</button>
+    <button id="done--drawer" disabled>Done</button>
 </div>
 
 </body>

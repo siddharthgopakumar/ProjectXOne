@@ -6,6 +6,10 @@ const form = document.querySelector('#form--drawer');
 const titleDrawer = document.querySelector('#title--drawer');
 const subtitleDrawer = document.querySelector('#subtitle--drawer');
 const previewContainer = document.querySelector('#preview--container');
+const progress = document.querySelector('#fill--progress');
+const progressHeading = document.querySelector('#heading--progress');
+
+let pro = 0;
 let bg;
 
 let checkitycheck = false;
@@ -15,7 +19,7 @@ let Nodes;
 
 
 function toggleDrawer() {
-    if(addCreativeBtn.disabled) {
+    if(addCreativeBtn.disabled && pro < 5) {
         drawer.style.display = 'none';
         addCreativeBtn.disabled = false;
     }   else    {
@@ -35,16 +39,22 @@ function updatePreview(e) {
     titleDrawer.value = "";
     subtitleDrawer.value = "";
     lastSelected= "";
+    checkitycheck = false;
     Nodes.forEach((n) => n.previousSibling.checked = false);
     div.style.backgroundColor = bg;
+    div.setAttribute('data-color', bg);
     div.appendChild(title);
     div.appendChild(subtitle);
+    done.disabled = true;
     previewContainer.appendChild(div);
+    pro = previewContainer.childNodes.length - 1;
+    progressHeading.textContent = `${pro} / 5 Creatives`;
+    progress.style.width = `${20 * pro}%`;
     toggleDrawer();
 }
 
 function doneButtonHandler() {
-    if(titleDrawer.value !== "" && subtitleDrawer.value !== "" && checkitycheck)   done.disabled = false;
+    if(titleDrawer.value != "" && subtitleDrawer.value != "" && checkitycheck)   done.disabled = false;
     else    done.disabled = true;
 }
 
@@ -56,7 +66,7 @@ function isChecked(e)    {
             inputEle.checked = false;
         } else if(inputEle.id == lastSelected1)   {
                 inputEle.checked = false;
-                lastSelected = "";
+                lastSelected1 = "";
                 checkitycheck = false;
                 if(!done.disabled) done.disabled = true;
         }   else {
@@ -66,9 +76,8 @@ function isChecked(e)    {
                         lastSelected1 = inputEle.id;
                 }   else    {
                     lastSelected0.push(inputEle.id);
-                    console.log(lastSelected0);
+                    lastSelected0.filter
                 }
-
         }
 }
 
