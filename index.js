@@ -32,36 +32,6 @@ function toggleDrawer() {
     }
 }
 
-function titleSearcher() {
-const value = searchTitle.value.toLowerCase();
-console.log(value);
-filtered = {};
-    if(value != "")    {
-                previewContainer.style.display = 'none';
-                filterContainer.style.display = 'flex';
-                Object.keys(previewed).forEach((key) => {
-                    const title = key.split('-')
-
-                    if(title[1].includes(value) || title[2].includes(value))  {
-
-                        filtered[key] = previewed[key];
-                        console.log(filtered);
-                    }
-                    filterContainer.innerHTML = '';
-                    for(const property in filtered)    {
-                       filterContainer.appendChild(filtered[property].cloneNode(true));
-                       console.log(filterContainer);
-                    }
-         });
-    }   else    {
-                filtered = {};
-                previewContainer.style.display = 'flex';
-                filterContainer.style.display = 'none';
-                filterContainer.innerHTML = '';
-    }
-
-}
-
 function updatePreview(e) {
     e.preventDefault();
     previewContainer.style.display = 'flex';
@@ -89,23 +59,44 @@ function updatePreview(e) {
     progress.style.width = `${20 * pro}%`;
     toggleDrawer();
 }
-function filterator() {
+
+function masterFilter() {
+    const value = searchTitle.value.toLowerCase();
     filtered = {};
-    if(lastSelected0.length > 0)   {
+    if(value != "" && lastSelected0.length > 0) {
+        previewContainer.style.display = 'none';
+        filterContainer.style.display = 'flex';
+        Object.keys(previewed).forEach((key) => {
+                                    const identifiers = key.split('-');
+                                    if(lastSelected0.includes(identifiers[0]) && (identifiers[1].includes(value) || identifiers[2].includes(value)))  filtered[key] = previewed[key];
+                                });
+                filterContainer.innerHTML = '';
+                for(const property in filtered)    filterContainer.appendChild(filtered[property].cloneNode(true));
+    }  else if(value != "" && lastSelected0.length == 0) {
             previewContainer.style.display = 'none';
             filterContainer.style.display = 'flex';
-             Object.keys(previewed).forEach((key) => {
-                 if(lastSelected0.includes(key.match(/#[0-9a-z]+/g)[0]))   filtered[key] = previewed[key];
-                 });
-             filterContainer.innerHTML = '';
-            for(const property in filtered)    {
-               filterContainer.appendChild(filtered[property].cloneNode(true));
-            }
-    }    else    {
-           previewContainer.style.display = 'flex';
-           filterContainer.style.display = 'none';
-   }
+            Object.keys(previewed).forEach((key) => {
+                                        const title = key.split('-')
+                                        if(title[1].includes(value) || title[2].includes(value))  filtered[key] = previewed[key];
+                                    });
+            filterContainer.innerHTML = '';
+            for(const property in filtered)    filterContainer.appendChild(filtered[property].cloneNode(true));
+        }   else if(lastSelected0.length > 0 && value == "") {
+                previewContainer.style.display = 'none';
+                            filterContainer.style.display = 'flex';
+                             Object.keys(previewed).forEach((key) => {
+                                 if(lastSelected0.includes(key.match(/#[0-9a-z]+/g)[0]))   filtered[key] = previewed[key];
+                                 });
+                             filterContainer.innerHTML = '';
+                            for(const property in filtered)    filterContainer.appendChild(filtered[property].cloneNode(true));
+        }   else    {
+                filtered = {};
+                previewContainer.style.display = 'flex';
+                filterContainer.style.display = 'none';
+                filterContainer.innerHTML = '';
+    }
 }
+
 function doneButtonHandler() {
     if(titleDrawer.value != "" && subtitleDrawer.value != "" && checkitycheck)   done.disabled = false;
     else    done.disabled = true;
@@ -116,7 +107,7 @@ function isChecked(e)    {
         if(lastSelected0.includes(inputEle.value))  {
             lastSelected0.splice(lastSelected0.indexOf(inputEle.value), 1);
             inputEle.checked = false;
-            filterator();
+            masterFilter();//filterator();//
         } else if(inputEle.id == lastSelected1)   {
                 inputEle.checked = false;
                 lastSelected1 = "";
@@ -129,7 +120,7 @@ function isChecked(e)    {
                         lastSelected1 = inputEle.id;
                 }   else    {
                     lastSelected0.push(inputEle.value);
-                    filterator();
+                masterFilter();    //filterator();
                 }
         }
 }
@@ -169,7 +160,7 @@ addCreativeBtn.addEventListener('click', toggleDrawer);
 form.addEventListener('change', doneButtonHandler);
 form.addEventListener('keyup', doneButtonHandler);
 done.addEventListener('click', (e) =>  updatePreview(e,bg));
-searchTitle.addEventListener('keyup', titleSearcher);
+searchTitle.addEventListener('keyup', masterFilter);
 closeButton.addEventListener('click', () => {
         drawer.style.display = 'none';
         addCreativeBtn.disabled = false;
