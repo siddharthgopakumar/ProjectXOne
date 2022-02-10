@@ -1,6 +1,9 @@
 *{
     font-family: Nunito, sans-serif;
 }
+
+
+
 button {
 cursor: pointer;
 }
@@ -100,11 +103,35 @@ button, input[type="submit"], input[type="text"] {
     flex-direction: column;
 }
 #creative--drawer  h3 {
-flex: 0.5;
+    flex: 0.5;
 }
+
+
 #add--creative {
-    margin-left: 10px;
+     color:#480607;
+     background: linear-gradient(to right, #adff2f 0%,#fceeb5 50%,#ee786e 100%);
+     background-size: 500%;
+     border: none;
+     border-radius: 5rem;
+     box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
+     cursor: pointer;
+     height: 2.5rem;
+     letter-spacing: .05em;
+     outline: none;
+     user-select: none;
+     width: 9rem;
+     margin-left:10px;
+     animation-name:gradient;
+     animation-duration:2.5s;
+     animation-iteration-count:infinite;
+     animation-fill-mode:forwards;
 }
+
+@keyframes gradient{
+  0% {background-position: right;}
+  100%  {background-position: left;}
+ }
+
 .previews   {
     margin-top: 30px;
     margin-left: 10px;
